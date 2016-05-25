@@ -25,6 +25,8 @@ public class BloggerItem {
     private String selfLink;
     @SerializedName("title")
     private String title;
+    @SerializedName("images")
+    private List<Images> images = new ArrayList<>();
     @SerializedName("author")
     private Author author;
     @SerializedName("replies")
@@ -156,6 +158,20 @@ public class BloggerItem {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * @return The images
+     */
+    public List<Images> getImages() {
+        return images;
+    }
+
+    /**
+     * @param images The images
+     */
+    public void setImages(List<Images> images) {
+        this.images = images;
     }
 
     /**

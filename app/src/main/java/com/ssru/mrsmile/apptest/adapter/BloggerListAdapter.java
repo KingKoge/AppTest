@@ -11,6 +11,8 @@ import com.ssru.mrsmile.apptest.dao.BloggerDao;
 import com.ssru.mrsmile.apptest.dao.BloggerItem;
 import com.ssru.mrsmile.apptest.views.BloggerListItem;
 
+import java.util.Collections;
+
 /**
  * Created by Mr.Smile on 5/21/2016.
  */
@@ -68,6 +70,7 @@ public class BloggerListAdapter extends BaseAdapter {
 
         BloggerItem dao = (BloggerItem) getItem(position);
         item.setNameText(dao.getTitle());
+        // TODO: 5/25/2016 API Not Image
         item.setImageUrl(dao.getAuthor().getImage().getUrl());
 
         if (position > lastPosition) {
