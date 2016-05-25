@@ -26,6 +26,10 @@ public class BloggerListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if (dao == null)
+            return 0;
+        if (dao.getBloggerItems() == null)
+            return 0;
         return dao.getBloggerItems().size();
     }
 

@@ -11,7 +11,7 @@ public class BloggerDao {
     private String kind;
     @SerializedName("nextPageToken")
     private String nextPageToken;
-    @SerializedName("bloggerItems")
+    @SerializedName("items")
     private List<BloggerItem> bloggerItems = new ArrayList<>();
     @SerializedName("etag")
     private String etag;

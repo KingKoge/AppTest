@@ -5,14 +5,27 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ssru.mrsmile.apptest.R;
+import com.ssru.mrsmile.apptest.adapter.BloggerListAdapter;
+import com.ssru.mrsmile.apptest.dao.BloggerDao;
+import com.ssru.mrsmile.apptest.manager.Contextor;
+import com.ssru.mrsmile.apptest.manager.HttpManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 public class MainFragment extends Fragment {
+
+    private ListView listView;
+    private BloggerListAdapter listAdapter;
 
     public MainFragment() {
         super();
@@ -35,6 +48,36 @@ public class MainFragment extends Fragment {
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+        listAdapter = new BloggerListAdapter();
+        listView = (ListView) rootView.findViewById(R.id.listView);
+        listView.setAdapter(listAdapter);
+
+        reloadData();
+    }
+
+    private void reloadData() {
+        String blogId = "2112378201659339351";
+        String key = "AIzaSyBzL7-wKQl-bOHg7EyFxYrSWDrqIqGbt4Y";
+
+        Call<BloggerDao> call = HttpManager.getInstance()
+                .getService()
+                .loadBlogger(blogId , key);
+
+        call.enqueue(new Callback<BloggerDao>() {
+            @Override
+            public void onResponse(Call<BloggerDao> call, Response<BloggerDao> response) {
+                if (response.isSuccessful()) {
+                    BloggerDao dao = response.body();
+                    listAdapter.setDao(dao);
+                    listAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BloggerDao> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
