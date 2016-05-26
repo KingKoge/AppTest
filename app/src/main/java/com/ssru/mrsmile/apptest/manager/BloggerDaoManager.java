@@ -4,6 +4,7 @@ import com.ssru.mrsmile.apptest.dao.BloggerDao;
 import com.ssru.mrsmile.apptest.dao.BloggerItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,11 +17,12 @@ public class BloggerDaoManager {
 
     public void setDao(BloggerDao dao) {
         this.tempDao = dao;
+        this.dao = dao;
         sortDao();
     }
 
     private void sortDao() {
-        dao = tempDao;
+        setLabelTypeEtc();
         List<String> listLabel = getListLabelType();
         List<BloggerItem> tempItem = new ArrayList<>();
 
@@ -36,7 +38,6 @@ public class BloggerDaoManager {
 
     private List<String> getListLabelType() {
         List<String> listLabel = new ArrayList<>();
-
         for (BloggerItem item : tempDao.getBloggerItems()) {
             int count = 0;
             String itemLabel = item.getLabels().get(0);
@@ -53,11 +54,24 @@ public class BloggerDaoManager {
                 }
             }
         }
-
+        Collections.sort(listLabel);
         return listLabel;
     }
 
-    public BloggerDao getDao(){
+    private void setLabelTypeEtc() {
+        List<String> labelEtc = new ArrayList<>();
+        labelEtc.add("Etc");
+
+        for (BloggerItem item : tempDao.getBloggerItems()) {
+            try {
+                String label = item.getLabels().get(0);
+            } catch (IndexOutOfBoundsException ex) {
+                item.setLabels(labelEtc);
+            }
+        }
+    }
+
+    public BloggerDao getDao() {
         return dao;
     }
 }

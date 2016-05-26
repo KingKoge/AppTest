@@ -80,7 +80,7 @@ public class MainFragment extends Fragment {
             public void onResponse(Call<BloggerDao> call, Response<BloggerDao> response) {
                 if (response.isSuccessful()) {
                     BloggerDao dao = response.body();
-                    //daoManager.setDao(dao);
+                    daoManager.setDao(dao);
                     listAdapter.setDao(dao);
                     listAdapter.notifyDataSetChanged();
                 }
