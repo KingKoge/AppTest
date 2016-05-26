@@ -53,11 +53,13 @@ public class BloggerListItem extends BaseCustomViewGroup {
 
     private ImageView ivImg;
     private TextView tvName;
+    private TextView tvTitle;
 
     private void initInstances() {
         // findViewById here
         ivImg = (ImageView) findViewById(R.id.ivImg);
         tvName = (TextView) findViewById(R.id.tvName);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -112,6 +114,18 @@ public class BloggerListItem extends BaseCustomViewGroup {
 
         //self
         setMeasuredDimension(width , height);  // it a px type
+    }
+
+    public void setTitleText(String text){
+        tvTitle.setText(text);
+    }
+
+    public void showTitleText(){
+        tvTitle.setVisibility(VISIBLE);
+    }
+
+    public void hiddenTitleText(){
+        tvTitle.setVisibility(GONE);
     }
 
     public void setNameText(String text){

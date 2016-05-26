@@ -23,6 +23,8 @@ public class BloggerListAdapter extends BaseAdapter {
 
     private BloggerDao dao;
 
+    private String title = "";
+
     public void setDao(BloggerDao dao) {
         this.dao = dao;
     }
@@ -70,6 +72,17 @@ public class BloggerListAdapter extends BaseAdapter {
         }
 
         BloggerItem dao = (BloggerItem) getItem(position);
+        if (dao.getLabels().size() != 0){
+            String label = dao.getLabels().get(0);
+            if (label.equalsIgnoreCase(title)) {
+                item.hiddenTitleText();
+            } else {
+                item.setTitleText(label);
+                item.showTitleText();
+                title = label;
+            }
+        }
+
         item.setNameText(dao.getTitle());
         if (dao.getImages().size() != 0)
             item.setImageUrl(dao.getImages().get(0).getUrl());
