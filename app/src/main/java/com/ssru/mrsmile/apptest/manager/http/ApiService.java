@@ -13,5 +13,9 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @GET("blogger/v3/blogs/{blogId}/posts")
-    Call<BloggerDao> loadBlogger(@Path("blogId") String blogId , @Query("key") String key);
+    Call<BloggerDao> loadBlogger(@Path("blogId") String blogId,
+                                 @Query("key") String key,
+                                 @Query("fetchBodies") boolean fetchBodies,
+                                 @Query("fetchImages") boolean fetchImages,
+                                 @Query("maxResults") int maxResults);
 }

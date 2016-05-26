@@ -1,5 +1,6 @@
 package com.ssru.mrsmile.apptest.adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -70,8 +71,8 @@ public class BloggerListAdapter extends BaseAdapter {
 
         BloggerItem dao = (BloggerItem) getItem(position);
         item.setNameText(dao.getTitle());
-        // TODO: 5/25/2016 API Not Image
-        item.setImageUrl(dao.getAuthor().getImage().getUrl());
+        if (dao.getImages().size() != 0)
+            item.setImageUrl(dao.getImages().get(0).getUrl());
 
         if (position > lastPosition) {
             Animation anim = AnimationUtils.loadAnimation(

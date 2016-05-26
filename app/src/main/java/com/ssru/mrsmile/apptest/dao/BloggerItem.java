@@ -1,6 +1,7 @@
 package com.ssru.mrsmile.apptest.dao;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -216,4 +217,13 @@ public class BloggerItem {
         this.labels = labels;
     }
 
+    public static Comparator<BloggerItem> labelComparator = new Comparator<BloggerItem>() {
+        @Override
+        public int compare(BloggerItem lhs, BloggerItem rhs) {
+            String label1 = lhs.getLabels().get(0).toUpperCase();
+            String label2 = rhs.getLabels().get(0).toUpperCase();
+
+            return label1.compareTo(label2);
+        }
+    };
 }
