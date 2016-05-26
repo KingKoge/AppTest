@@ -74,12 +74,18 @@ public class BloggerListAdapter extends BaseAdapter {
         BloggerItem dao = (BloggerItem) getItem(position);
         if (dao.getLabels().size() != 0){
             String label = dao.getLabels().get(0);
-            if (label.equalsIgnoreCase(title)) {
-                item.hiddenTitleText();
-            } else {
+
+            if (position == 0) {
                 item.setTitleText(label);
                 item.showTitleText();
-                title = label;
+            }else {
+                BloggerItem beforeDao = (BloggerItem) getItem(position-1);
+                if (label.equalsIgnoreCase(beforeDao.getLabels().get(0))) {
+                    item.hiddenTitleText();
+                } else {
+                    item.setTitleText(label);
+                    item.showTitleText();
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 package com.ssru.mrsmile.apptest.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,21 +42,28 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        initInstances(rootView);
-        return rootView;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        reloadData();
     }
 
-    private void initInstances(View rootView) {
-        daoManager = new BloggerDaoManager();
-        // Init 'View' instance(s) with rootView.findViewById here
-        listAdapter = new BloggerListAdapter();
-        listView = (ListView) rootView.findViewById(R.id.listView);
-        listView.setAdapter(listAdapter);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
 
-        reloadData();
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        listView = (ListView) view.findViewById(R.id.listView);
+        initInstances();
+    }
+
+    private void initInstances() {
+        daoManager = new BloggerDaoManager();
+        listAdapter = new BloggerListAdapter();
+        listView.setAdapter(listAdapter);
     }
 
     private void reloadData() {
